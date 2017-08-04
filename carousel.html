@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        body {
+            padding: 20px;
+        }
+
+        #container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            border: 3px solid #333;
+            overflow: hidden;
+        }
+
+        #list {
+            position: absolute;
+            z-index: 1;
+            width: 4200px;
+            height: 400px;
+        }
+
+        #list img {
+            float: left;
+            width: 600px;
+            height: 400px;
+        }
+
+        #buttons {
+            position: absolute;
+            left: 250px;
+            bottom: 20px;
+            z-index: 2;
+            height: 10px;
+            width: 100px;
+        }
+
+        #buttons span {
+            float: left;
+            margin-right: 5px;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+        }
+
+        #buttons .on {
+            background: orangered;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 180px;
+            z-index: 2;
+            display: none;
+            width: 40px;
+            height: 40px;
+            font-size: 36px;
+            font-weight: bold;
+            line-height: 39px;
+            text-align: center;
+            color: #fff;
+            background-color: RGBA(0, 0, 0, .3);
+            cursor: pointer;
+        }
+
+        .arrow:hover {
+            background-color: RGBA(0, 0, 0, .7);
+        }
+
+        #container:hover .arrow {
+            display: block;
+        }
+
+        #prev {
+            left: 20px;
+        }
+
+        #next {
+            right: 20px;
+        }
+	</style>
+</head>
+<body>
+<div id="container">
+    <div id="list" style="left: -600px;">
+        <img src="img/5.jpg" alt="1"/>
+        <img src="img/1.jpg" alt="1"/>
+        <img src="img/2.jpg" alt="2"/>
+        <img src="img/3.jpg" alt="3"/>
+        <img src="img/4.jpg" alt="4"/>
+        <img src="img/5.jpg" alt="5"/>
+        <img src="img/1.jpg" alt="5"/>
+    </div>
+    <div id="buttons">
+        <span index="1" class="on"></span>
+        <span index="2"></span>
+        <span index="3"></span>
+        <span index="4"></span>
+        <span index="5"></span>
+    </div>
+    <a href="javascript:;" id="prev" class="arrow">&lt;</a>
+    <a href="javascript:;" id="next" class="arrow">&gt;</a>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var list = document.getElementById('list');
+	var prev = document.getElementById('prev');
+	var next = document.getElementById('next');
+	var container = document.getElementById('container');
+	var span = document.getElementsByTagName('span');
+	var num = 1;
+
+	function left_right(offset){
+		var nowLeft = parseInt(list.style.left);  //将600px转化为数字600，方便相加
+		var nextLeft = nowLeft + offset;
+		list.style.left = nextLeft + 'px';
+		if(nextLeft > -600){
+			list.style.left = '-3000px';
+		}
+		if(nextLeft < -3000){
+			list.style.left = '-600px';
+		}
+	}
+
+	prev.onclick = function(){
+		left_right(600);
+		num-=1;
+		if(num<1){num=5;}
+		circle();
+	}
+
+	next.onclick = function(){
+		left_right(-600);
+		num+=1;
+		if(num>5){num=1;}
+		circle();
+	}
+
+	function play(){
+		timer = setInterval(function(){
+			next.onclick();
+		},1500);
+	}
+	play();
+
+	function stop(){
+		clearInterval(timer);
+	}
+
+	function circle(){
+		for(var i=1; i<=span.length; i++){
+			if(i==num){
+				span[num-1].className = 'on';
+			}else{
+				span[i-1].className = '';
+			}
+		}
+	}
+
+	container.onmouseover = stop;
+	container.onmouseout = play;
+
+	for(var i=0; i<span.length; i++){
+		span[i].onclick = function(){
+			var index = this.getAttribute('index');
+			left_right(-600*(num-index));
+			num = index;
+			circle();
+		}
+	}
+}
+
+</script>
+</body>
+</html>

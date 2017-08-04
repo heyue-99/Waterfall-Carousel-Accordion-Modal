@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<style type="text/css">
+	ul{
+		position: relative;
+		font-size: 0px;   /*消除li并列后之间的空隙*/
+		width: 840px;
+		height: 400px;
+	}
+	li{
+		position: relative;
+		width: 80px;
+		height: 100%;
+		overflow: hidden;  /*img部分不可见*/
+		list-style: none;
+		display: inline-block;
+	}
+	.last{     /*最后一张图绝对定位，避免下移*/
+		width: 600px;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	li .text{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 80px;
+		height: 100%;
+		font-size: 20px;
+		color: white;
+		background-color: rgba(0,0,0,.5);
+		cursor: pointer;
+	}
+	.text p{
+		padding: 0 30px;
+	}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><div><img src="img/6.jpg" style="width: 600px;height: 400px"></div><div class="text"><p>X教授</p></div></li>
+		<li><div><img src="img/7.jpg" style="width: 600px;height: 400px"></div><div class="text"><p>金刚狼</p></div></li>
+		<li><div><img src="img/8.jpg" style="width: 600px;height: 400px"></div><div class="text"><p>魔形女</p></div></li>
+		<li class="last"><div><img src="img/9.jpg" style="width: 600px;height: 400px"></div><div class="text"><p>琴葛蕾</p></div></li>
+	</ul>
+	<script type="text/javascript">
+		$('ul').on('mouseover','li',function(){
+			$(this).stop().animate({width:'600px'},600).siblings().stop().animate({width:'80px'},600);
+		})
+	</script>
+</body>
+</html>
