@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>modal</title>
+    <style>
+		#motai{
+			display: none;
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 999;
+			background-color: rgba(0,0,0,.7);
+		}
+		#img_yuan:hover{
+			opacity: .6;
+			cursor: pointer;
+		}
+		#img_motai{
+			display: block;
+			margin: 30px auto;
+			width: 40%;
+		}
+		#img_motai_captain{
+			margin: 15px auto;
+			text-align: center;
+			width: 40%;
+			font-size: 20px;
+			color: #ccc;
+		}
+		#img_motai,#img_motai_captain{
+			animation: display 1s;
+		}
+		@keyframes display{
+			from{
+				transform: scale(0.1);
+			}
+			to{
+				transform: scale(1);
+			}
+		}
+    </style>
+</head>
+<body>
+
+
+<img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1502785890&di=5ff811789d7aa201e93b507b841b5bad&src=http://www.52rkl.cn/uploads/allimg/140626/0J9432U8-0.jpg" id="img_yuan" alt="hello!" width='400px' style="border-radius: 10px;">
+<div id="motai">
+	<img id="img_motai"  />
+	<div id="img_motai_captain"></div>
+</div>
+<script type="text/javascript">
+window.onload = function(){
+	var img = document.getElementById('img_yuan');
+	var motai = document.getElementById('motai');
+	var motai_img =  document.getElementById('img_motai');
+	var captain = document.getElementById('img_motai_captain');
+
+	img.onclick = function(){
+		motai.style.display = 'block';
+		motai_img.src = this.src;
+		captain.innerText = this.alt;
+	}
+
+	motai_img.onclick = function(){
+		motai.style.display = 'none';
+	}
+}
+</script>
+
+
+</body>
+</html>
